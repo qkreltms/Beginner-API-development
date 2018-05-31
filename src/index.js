@@ -10,6 +10,12 @@ let app = express()
 app.server = http.createServer(app)
 //middleware
 
+
+app.use(bodyParser.urlencoded({ extended: false }))
+//parse application/json
+app.use(bodyParser.json({
+  limit: config.bodyLimit
+}))
 //passprot configstore
 
 //api routes v1
