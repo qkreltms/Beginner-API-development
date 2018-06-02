@@ -28,7 +28,15 @@ export default({ config, db }) => {
     })
   })
 
-
+  // 'v1/restaurant/:id' - Read by id
+  api.get('/:id', (req, res) => {
+    Restaurant.findById(req.params.id, (err, restaurant) => {
+      if (err) {
+        res.send(err)
+      }
+      res.json(restaurant)
+    })
+  })
 
   return api
 }
