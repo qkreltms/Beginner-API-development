@@ -38,5 +38,35 @@ export default({ config, db }) => {
     })
   })
 
+  api.put('/:id', (req, res) => {
+    //id를 찾은 후
+    Restaurant.findById(req.params.id, (err, restaurant) => {
+      if (err) {
+        res.send(err)
+      }
+      //수정할 값을 받고
+      restaurant.name = req.body.name
+      //수정한다.
+      restaurant.save(err => {
+        if (err) {
+          res.send(err)
+        }
+        res.json({ message: "Restaurant info updated" })
+      })
+    })
+  })
+
+  api.delete('/:id', (req, res) => {
+    Restaurant.remove({
+      //id를 찾는다
+      _id: req.params.id
+      //삭제를 콜백으로 알려줌
+    }, (err, restaurant) => {
+      if (err) {
+        res.send(err)
+      }
+      res.json({ message: "Restaurant successfully removed"})
+    })
+  })
   return api
 }
